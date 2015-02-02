@@ -1,0 +1,102 @@
+<% include ../common/header.html%>
+    <!--网页主体-->
+    <div class="container">
+      <div class="box">
+        <div class="post">
+          <h3>发布话题</h3>
+          <form action="/post" method="post">
+            <p><label>选择节点:</label>
+              <select name="node" id="node-tab">
+                <option value>请选择</option>
+                 <optgroup label="NodeJS">
+                  <option value="node0">Node</option>
+                  <option value="node1">Express</option>
+                  <option value="node2">SocketIO</option>
+                  <option value="node3">Stylus</option>
+                  <option value="node4">重构</option>
+                  <option value="node5">部署</option>
+                  <option value="node6">开源项目</option>
+                  <option value="node7">新手问题</option>
+                  <option value="node8">V8源码探究</option>
+                 </optgroup>
+                 <optgroup label="分享">
+                  <option value="node9">健康</option>
+                  <option value="node10">工具控</option>
+                  <option value="node11">求职</option>
+                  <option value="node12">招聘</option>
+                  <option value="node13">分享</option>
+                  <option value="node14">瞎扯淡</option>
+                  <option value="node15">其他</option>
+                  <option value="node16">书籍</option>
+                  <option value="node17">创业</option>
+                  <option value="node18">移民</option>
+                 </optgroup>
+                  <optgroup label="Web开发">
+                  <option value="node19">MongoDB</option>
+                  <option value="node20">Redis</option>
+                  <option value="node21">Git</option>
+                  <option value="node22">DataBase</option>
+                  <option value="node23">Linux</option>
+                  <option value="node24">Nginx</option>
+                  <option value="node25">CSS</option>
+                  <option value="node26">运维</option>
+                  <option value="node27">安全</option>
+                  <option value="node28">云服务</option>
+                 </optgroup>
+                 <optgroup label="Language">
+                  <option value="node29">Go</option>
+                  <option value="node30">Erlang</option>
+                  <option value="node31">Haskell</option>
+                  <option value="node32">Swift</option>
+                  <option value="node33">Java</option>
+                  <option value="node34">Javascript</option>
+                  <option value="node35">C</option>
+                  <option value="node36">Python</option>
+                 </optgroup>
+                 <optgroup label="社区">
+                  <option value="node37">公告</option>
+                  <option value="node38">反馈</option>
+                  <option value="node39">社区开发</option>
+                  <option value="node40">NoPoint</option>
+                 </optgroup>
+              </select>
+              热门节点:<span class="checked" id="12">招聘</span><span class="checked" id="13">分享</span><span class="checked" id="14">瞎扯淡</span>
+              <span class="checked" id="7">新手问题</span><span class="checked" id="9">健康</span><span class="checked" id="1">Express</span>
+            </p>
+            <p>
+              <label>标题：</label><input class="post-title" type="text" name="title"/>
+            </p>
+            <p><label>内容：</label>
+              <a id="load_button" class="icon-image" title="上传文件"></a>
+              <textarea id="formarea" rows="24" name="content"></textarea>
+            </p>
+            <input type="submit" class="sub"value="发布"/>
+          </form>
+            <input id="picLoader" type="file" name="pic"/>
+        </div>
+      </div>
+
+      <!--主体右侧：吐槽区,小贴士,推荐资源-->
+      <div class="slidebar">
+
+        <div class="talk slidecom">
+          <h3>Markdown 语法参考</h3>
+          <li>### 单行的标题</li>
+          <li>**粗体**</li>
+          <li>`console.log('行内代码')`</li>
+          <li>```js\n code \n``` 标记代码块</li>
+          <li>[内容](链接)</li>
+          <li>![文字说明](图片链接)</li>
+          <li><a href="">Markdown 文档</a></li>
+        </div>
+        
+      </div>
+      <!--主体右侧ends-->
+    </div>
+    <!--网页主体ends-->
+    <script type="text/javascript">
+    require(['jquery-1.8.3', 'post'], function($, post){
+      post.run();
+    });
+    </script>
+<%include ../common/footer.html%>

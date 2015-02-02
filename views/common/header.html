@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel='stylesheet' href='public/stylesheets/main.css' />
+	   <script type='text/javascript' data-main='public/javascripts/main.js' src='public/javascripts/require.js'></script>
+  </head>
+
+  <body>
+    <!--顶部导航条-->
+  	<div id="headNav" class="navbar">
+      <div class="content">
+        <h3><img src="../public/images/logo.png"></h3>
+        <ul class="nav">
+          <li class="<% if(typeof nav!=='undefined'&& nav=='index'){%>active<%}%>">
+            <a href="/">首页</a></li>
+          <li class="<% if(typeof nav!=='undefined'&& nav=='job'){%>active<%}%>">
+            <a href="/node?node_cat=node12">招聘</a></li>
+          <li class="<% if(typeof nav!=='undefined'&& nav=='node'){%>active<%}%>">
+            <a onclick="showNodes()" href="#">节点</a></li>
+        </ul>
+        <div class="navright">
+          <form id="search" action="/search">
+            <input class="input search" placeholder="搜索" type="text"/>
+          </form>
+          <% if(typeof user!=='undefined'&& user.loginname!==''){%>
+            <input type="hidden" id="logined" value="true"/>
+            <input type="hidden" id="userProfile" value="<%= user.profile_image_url%>"/>
+            <input type="hidden" id= "userName" value="<%= user.loginname%>"/>
+            <div id="nav-user">
+              <img src="<%= user.profile_image_url%>"/>
+              <div class="usermenu">
+                <i class="tri"></i>
+                <ul>
+                  <li><a class="transition" href="/user?id=<%= user._id%>">我的主页</a></li>
+                  <li><a class="tranction" href="/setProfile">个人资料设置</a></li>
+                  <li><a class="tranction" href="/myOwnMessage">我的消息</a><em><%= user.messageCount%></em></li>
+                  <li><a class="tranction" href="/post">发布话题</a></li>
+                  <li><a class="tranction" href="/loginout">安全退出</a></li>
+                </ul>
+              </div>
+            </div>
+          <%} else{%>
+             <div id="nav-login">
+              <input type="hidden" id="userProfile" value=""/>
+              <input type="hidden" id= "userName" value=""/>
+              <input type="hidden" id="logined" value="false"/>
+              <a onclick="signin()" href="#" class="loginRegister">登陆</a>
+            </div>
+          <%}%>
+        </div>
+      </div>
+    </div>
+    <!--顶部导航条ends-->
+
+    <!--背景遮罩start-->
+    <div class="bgmask" id="bgmask1">
+    </div>
+    <div class="bgmask" id="bgmask2">
+    </div>
+    <!--背景遮罩ends-->
+    <!--ajax login页面-->
+	  <div id="logina" class="loginarea">
+      <div id="ulpanel">
+        <div class="loginform">
+          <p>
+            <span id="logintitle">
+              会员登录
+            </span>
+            <span id="login-right">
+              还没有账号<a href="/signup">立即注册</a>
+            </span>
+          </p>
+          <span id="notice"></span>
+          <input id="name" class="logininput" name="loginname" placeholder="用户名"/>
+          <input id="pass" class="logininput" name="password" placeholder="密码"/>
+          <div id="loginbottom">
+            <input type="button" id="loginbutton" value="登录"/>
+            <input id="keeppass" type="checkbox"/><span id="keep">保持登录</span>
+          </div>  
+        </div>
+      </div>
+    </div>
+        <!--ajax login 页面ends-->
+
+        <!--点击"节点"从页面顶端下拉的页面starts-->
+        <div class="node-area" id="node-area">
+          <h3>讨论节点分类导航</h3>
+          <ul>
+            <li>
+              <label>NodeJS:</label>
+              <span>
+                <a href="/node?node_cat=node0">Node</a>
+                <a href="/node?node_cat=node1">Express</a>
+                <a href="/node?node_cat=node2">SocketIO</a>
+                <a href="/node?node_cat=node3">Stylus</a>
+                <a href="/node?node_cat=node4">重构</a>
+                <a href="/node?node_cat=node5">部署</a>
+                <a href="/node?node_cat=node6">开源项目</a>
+                <a href="/node?node_cat=node7">新手问题</a>
+                <a href="/node?node_cat=node8">V8源码探究</a>
+              </span>
+            </li>
+            <li>
+              <label>分享:</label>
+              <span>
+                <a href="/node?node_cat=node9">健康</a>
+                <a href="/node?node_cat=node10">工具控</a>
+                <a href="/node?node_cat=node11">求职</a>
+                <a href="/node?node_cat=node12">招聘</a>
+                <a href="/node?node_cat=node13">分享</a>
+                <a href="/node?node_cat=node14">瞎扯淡</a>
+                <a href="/node?node_cat=node15">其他</a>
+                <a href="/node?node_cat=node16">书籍</a>
+                <a href="/node?node_cat=node17">创业</a>
+                <a href="/node?node_cat=node18">移民</a>
+              </span>
+            </li>
+            <li>
+              <label>Web开发:</label>
+              <span>
+                <a href="/node?node_cat=node19">MongoDB</a>
+                <a href="/node?node_cat=node20">Redis</a>
+                <a href="/node?node_cat=node21">Git</a>
+                <a href="/node?node_cat=node22">DataBase</a>
+                <a href="/node?node_cat=node23">Linux</a>
+                <a href="/node?node_cat=node24">Nginx</a>
+                <a href="/node?node_cat=node25">CSS</a>
+                <a href="/node?node_cat=node26">运维</a>
+                <a href="/node?node_cat=node27">安全</a>
+                <a href="/node?node_cat=node28">云服务</a>
+              </span>
+            </li>
+            <li>
+              <label>Languages:</label>
+              <span>
+                <a href="/node?node_cat=node29">Go</a>
+                <a href="/node?node_cat=node30">Erlang</a>
+                <a href="/node?node_cat=node31">Haskell</a>
+                <a href="/node?node_cat=node32">Seift</a>
+                <a href="/node?node_cat=node33">Java</a>
+                <a href="/node?node_cat=node34">Javascript</a>
+                <a href="/node?node_cat=node35">C</a>
+                <a href="/node?node_cat=node36">Python</a>
+              </span>
+            </li>
+            <li>
+              <label>社区:</label>
+              <span>
+                <a href="/node?node_cat=node37">公告</a>
+                <a href="/node?node_cat=node38">反馈</a>
+                <a href="/node?node_cat=node39">社区开发</a>
+                <a href="/node?node_cat=node40">NoPoint</a>
+              </span>
+            </li>
+          </ul>
+        </div>
+        <!--点击"节点"从页面顶端下拉的页面ends-->
+      </div>
+    </div>
+    <script>
+      require(['jquery-1.8.3','headFloat'], function($, floater){
+        floater.float();
+      });
+    </script>
+    <script>
+      require(['jquery-1.8.3', 'login'],function($, login){
+        login.run();
+    });
+    </script>
+  

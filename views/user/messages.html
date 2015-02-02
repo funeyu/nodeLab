@@ -1,0 +1,21 @@
+  <% include ../common/header.html%>		
+		<div class="container">
+			<div class="box" style="width:870px">
+				<% if(messages.length >0){%>
+					<div class="clear-message"><a href="/clear">清空所有的消息</a></div>
+					<div class="user-topics">
+					<ul>
+						<%messages.forEach(function(message,index){%>
+							<li class="message">
+								<%-message.content%>
+							</li>
+						<%})%>
+					</ul>
+				</div>
+				<%} else{%>
+					<div class="empty">空</div>
+				<%}%>
+				
+			</div>
+		</div>
+	<% include ../common/footer.html%>

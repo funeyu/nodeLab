@@ -1,0 +1,76 @@
+  <% include ../common/header.html%>
+  		<div class="user-home">
+  			<div class="user-pannel clearfix">
+  				<img src="<%= ouser.profile_image_url%>"/>
+  				<div class="user_info">
+  					<p class="user_name"><%= user.loginname%></p>
+  					<p class="user_address">邮箱:&nbsp<a href="mailto:<%= user.email%>"><%= user.email%></a>&nbsp·&nbsp签名:&nbsp<%= user.sigature%></p>
+  					<p class="user_email"><span class="email">发私信</span></p>
+  				</div>
+  				<div class="user_popularity">
+            <p><i class="icon-eye"></i>人气:<b>890</b></p>
+  				</div>
+  			</div>
+  			<ul class="user_nav">
+  				<li id="0" class="here">帖子</li>
+  				<li id="1">回帖</li>
+  				<li id="2">收藏</li>
+  			</ul>
+  		</div>		
+		<div class="user-container">
+			<div class="user_visitors">
+				<h4>最近来访</h4>
+			</div>
+      <div class="user_hidden">
+        <!--帖子starts-->
+        <div class="user_main">
+          <div id="1" class="user-topics">
+            <ul>
+              <%topics.forEach(function(topic,index){%>
+                <li>
+                  <a class="user-node" href="/node?node_cat=<%= topic.node_cat%>"><%=topic.node%></a>  <a class="user-title" href="/topic?id=<%=topic._id%>&node_cat=<%= topic.node_cat%>"><%= topic.title%></a> <label class="user-time" data-info="<%= topic.create_at%>"></label>
+                </li>
+              <%})%>
+            </ul>
+            <%if(topics.length ==10){%>
+               <div class="more">
+              查看更多
+            </div>
+            <%}%>
+          </div>
+          <!--回帖starts-->
+            <div id="2"class="user-topics">
+              <ul>
+                <%answers.forEach(function(answer,index){%>
+                  <li>
+                    <a class="user-title" href="/topic?id=<%=answer.topic_id%>"><%=answer.topic_title%></a> <label class="user-time" data-info="<%= answer.create_at%>"></label> 
+                    <span class="user-content">回帖:<%= answer.content%></span>
+                  </li>
+                <%})%>
+              </ul>
+            </div>
+
+          <!--收藏starts-->
+          <div id="3" class="user-topics">
+            <ul>
+              <%collects.forEach(function(collect,index){%>
+                <li>
+                  <a class="user-title" href="/topic?id=<%=collect.topicId%>&node_cat=<%=collect.topicNode%>">
+                    <%=collect.topicTitle%>
+                  </a> 
+                </li>
+              <%})%>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <script>
+        require(['jquery-1.8.3', 'formDate', 'user'], function($, format, user){
+          format.bindElments('.user-time').Interval();
+          user.run();
+        });
+      </script>
+		</div>
+<% include ../common/footer.html%>

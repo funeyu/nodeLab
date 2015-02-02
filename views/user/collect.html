@@ -1,0 +1,26 @@
+  <% include ../common/header.html%>
+		<div class="container">
+			<div class="box minH700">
+				<ul class="user-header">
+					<li><a href="/user?id=<%= id%>">个人信息</a></li>
+					<li><a href="/user-topics?id=<%= id%>">帖子</a></li>
+					<li><a href="/user-answers?id=<%= id%>">回帖</a></li>
+					<li class="active">收藏</li>
+				</ul>
+
+				<div class="user-topics">
+					<ul>
+						<%collects.forEach(function(collect,index){%>
+							<li>
+								<a class="user-title" href="/topic?id=<%=collect.topicId%>&node_cat=<%=collect.topicNode%>">
+									<%=collect.topicTitle%>
+								</a> 
+							</li>
+						<%})%>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<% include ../common/footer.html%>
+</body>
+</html>

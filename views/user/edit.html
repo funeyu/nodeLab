@@ -1,0 +1,34 @@
+<%include ../common/header.html%>
+<div class="container">
+      <div class="user-container">
+      	<div class="sorts" style="text-align:left;padding-left:20px">设置个人信息</div>
+      	<form action="/edit" method="post">
+      		<p class="headerimage">
+      			<img id="user_img" src="<%= user.profile_image_url%>"/>
+      		</p>
+      		<p><label>头像地址:</label><input type="text" placeholder="输入qq号" id="headerurl" class="contact" name="headerimage"/>
+      			<input type="button" id="urlbutton" value="预览头像"/>
+      			
+      		</p>
+      		<p><label>地址:</label><input type="text" class="address" name="address" value="<%= user.location%>"/></p>
+      		<p><label>个人签名:</label><input type="text" class="signture" name="signture" value="<%= user.sigature%>"/></p>
+      		<p><label>联系方式:</label><input type="text" class="contact" name="email" placeholder="输入邮箱" value="<%= user.email%>"/></p>
+
+      		<p><label>登陆用户名:</label><input type="text" name="name" value="<%= user.loginname%>"/></p>
+      		<p><label>重置密码：</label><input type="password" name="password" value="<%= user.password%>"/></p>
+      		<p><label>确认密码：</label><input type="password" name="confirm" value="<%= user.password%>"/></p>
+      		<input type="submit" class="sub" value="提交">
+      	</form>
+      </div>
+</div>
+<script>
+(function(){
+	var abutton = document.getElementById('urlbutton');
+	var imageurl = document.getElementById('headerurl');
+	var image = document.getElementById('user_img');
+	abutton.addEventListener("click",function(){
+		image.src='http://q1.qlogo.cn/g?b=qq&nk='+imageurl.value+'&s=100';
+	},false);
+})();
+</script>
+<% include ../common/footer.html%>

@@ -1,0 +1,29 @@
+          <ul class="topics">
+            <% topics.forEach(function(topic, index){%>
+            <li class="topic">
+              <a href="/user?id=<%= topic.author_id%>">
+                <img class="avagtar"src="<%= topic.author.avatar%>"/>
+              </a>
+              <div class="topicinfo">
+                <div class="title">
+                  <a class="textOver" href="/topic?id=<%= topic._id%>&node_cat=<%= topic.node_cat%>"><%= topic.title%></a>
+                  <span class="count"><%= topic.reply_number%></span>
+                </div>
+                <div class="subtitle textOver">
+                  <a class="node" href="/node?node_cat=<%= topic.node_cat%>"><%= topic.node%></a>
+                  <a href="/user?id=<%=topic.author_id%>"><%= topic.author.name%></a>
+                  创建
+                  <%if(typeof(topic.last_reply_id)!=='undefined'){%>· 最后由
+                    <a href="/user?id=<%=topic.last_reply_id%>"><%= topic.last_reply_name%></a>于<span class="time" data-info="<%= topic.last_reply_at%>"></span>回复
+                  <%}%>
+                </div>
+              </div>
+            </li>
+            <% }) %>
+        </ul>
+        <% include ../common/page.html%>
+        <script>
+          require(['jquery-1.8.3','formDate'],function($, formDate){
+            formDate.bindElments('.topicinfo .time').Interval();
+          });
+        </script>

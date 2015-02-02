@@ -1,0 +1,15 @@
+<div class="topics-pages">
+    <input type="hidden" id="node_cat" value="<%= node_cat%>"/>
+    <input type="hidden" id="page_type" value="<%= page_type%>">
+    <input type="hidden" id="topic_count" value="<%= topic_count%>">
+    <input type="hidden" id="current_page" value="<%= current_page%>">
+
+    <ul class="pagination" id="pagination"></ul> 
+</div>
+  <script type="text/javascript">
+  require(['jquery-1.8.3', 'domReady', 'page'], function($, domReady, page){
+    domReady(function(){
+      page.run();
+    });
+  });
+</script>

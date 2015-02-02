@@ -1,0 +1,65 @@
+ <% include ../common/header.html%>
+    <div class="container">
+      <div class="box">
+        <div class="sorts">
+          查看: <a class="<%if(tab==='all'){%>active<%}%>" href="/?tab=all">默认</a>|
+                <a class="<%if(tab==='good'){%>active<%}%>" href="/?tab=good">优质帖子</a>|
+                <a class="<%if(tab==='nocares'){%>active<%}%>" href="/?tab=nocares">无人问津</a>|
+                <a class="<%if(tab==='latest'){%>active<%}%>" href="/?tab=latest">最新创建</a>
+        </div>
+        <%include../common/topiclist.html%>
+      </div>
+    <!--主体右侧：吐槽区,小贴士,推荐资源-->
+    <div class="slidebar">
+
+        <div class="talk slidecom" id="pannelId">
+          <h3>吐槽专区:</h3>
+          <div class="switch" id="switchId"><i id="plug" class="icon-toggle-on" alt="开关按钮"></i></div>
+
+          <div class="talk-content">
+          </div>
+          <div class="send">
+            <input type="button" id="sbutton" value="提交"/>
+            <input type="text" id="spitid" />
+          </div>
+        </div>
+
+        <div class="tips slidecom">
+          <h3>小贴士:</h3>
+          <ul>
+            <li>
+              1):后端安全，如何保证服务器的稳定性？如何保证服务器在出错或者高
+            </li>
+            <li>
+              2):如果你觉得 Ruby 官方下载 Ruby 太慢，可以去 http://ruby.taobao.org/mirrors/ruby/
+            </li>
+          </ul>
+        </div>
+        
+        <div class="tips slidecom">
+          <h3>网站运行情况:</h3>
+          <li style="margin-bottom:2px;">
+            <i class="icon-user"></i>会员数:<span><%= states.users%>人</span>
+          </li>
+          <li style="margin-bottom:2px;">
+            <i class="icon-envelope-square"></i>帖子数:<span><%= states.topics%>个</span>
+          </li>
+          <li style="margin-bottom:2px;">
+            <i class="icon-comment"></i>回帖数:<span><%= states.replies%>条</span>
+          </li>
+        </div>
+    </div>
+  </div>
+    <script>
+      require(['jquery-1.8.3', 'domReady', 'State','client'],function($, domReady, State, Client){
+        domReady(function(){
+          var app = new Client({
+          title:'Lets Chat',
+          host:'127.0.0.1',
+          port:3000
+          },State);
+          app.boot();
+       });
+    });
+    </script>
+  <% include ../common/footer.html%>

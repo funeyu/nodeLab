@@ -1,0 +1,113 @@
+  <% include ../common/header.html%>
+     <div class="container">
+      <div class="box">
+        <div class="topiccontent clear">
+          <h2><%= topic.title%></h2>
+          <div class="topicinfo">
+              <div class="subtitle">
+                <a class="node" href="/node?node_cat=<%= topic.node_cat%>"><%= topic.node%></a>·
+                <a href="/user?id=<%=topic.author_id%>"><%= topic.author.name%></a>
+                <span class="time" data-info="<%= topic.create_at%>"></span>创建
+                <%if(topic.last_reply_at){%>·最后由<a href="/user?id=<%= topic.last_reply_id%>"><%= topic.last_reply_name%></a>于
+                <span class="time" data-info="<%= topic.last_reply_at%>"></span>回复<%}%>
+                <i class="icon-eye"></i>
+                <span><%= topic.visit_number%>次</span>
+              </div>
+          </div>
+          <a href="/user?id=<%= topic.author_id%>"><img class="avagtar abs"src="<%= topic.author.avatar%>"/></a>
+          <div class="content">
+            <%- topic.content%>
+          </div>
+          <% if(typeof user!='undefined'){%>
+            <ul class="bottom clearfix">
+              <li id="like-bottom" class="like-bottom">
+                <%if(topic.favored){%>
+                  <em id="clear" class="transition icon-heart activeIcon"></em><b>取消喜欢</b>
+                <%}else{%>
+                   <em id="add" class="transition icon-heart"></em><b>喜欢</b>
+                 <%}%>
+                  (<span id="likes"><%=topic.favored_fellow.length%></span>人喜欢)
+              </li>
+              <li id="collect-bottom" class="collect-bottom">
+                 <%if(topic.concerned){%>
+                  <em id="clear" class="icon-paperclip transition activeIcon"></em><b>取消收藏</b>
+                 <%}else{%>
+                   <em id="add" class="icon-paperclip transition"></em><b>收藏</b>
+                 <%}%>
+              </li>
+            </ul>
+          <%}%>
+        </div>
+        <div class="response">
+          <div class="number"><%= topic.reply_number%>个回复</div>
+            <ul>
+             <%replies.forEach(function(reply,index){%>
+               <li id="reply<%= index+1%>">
+                <img class="avagtar left" src="<%= reply.replyer_profile%>"/>
+                <div class="right"> 
+                  <span><a class="replyer_name" href="/user?id=<%= reply.replyer_id%>"><%= reply.replyer_name%></a>
+                        <i class="time" data-info="<%= reply.create_at%>"></i>
+                        <b><%= index+1%>楼</b>
+                        <i class="icon-comment" style="float:right"></i>
+                  </span>
+                  <span class="font14"><%- reply.content%></span> 
+                </div>
+              </li>
+            <%})%>
+          </ul>
+        </div>
+
+        <!--隐藏域的文本(该主题下的信息)-->
+        <input type="hidden" id="topic_id" value="<%= topic._id%>"/>
+        <input type="hidden" id="node_cat" value="<%= topic.node_cat%>" />
+        <input type="hidden" id="topic_title" value="<%= topic.title%>" />
+
+        <div class="doReply">
+          <img class="avagtar left top10" src="<% if(typeof user==='undefined'){%>../public/images/portrait.gif<%} else {%><%= user.profile_image_url%><%}%>"/>
+          <form id="reply_form"action="/doReply" method="post">
+            <textarea id="doReply_area" rows="8" cols="20" name="content">
+            </textarea>
+            <input type="hidden" name="topicId" value="<%= topic._id%>">
+            <input type="hidden" name="topicTitle" value="<%= topic.title%>">  
+            <input type="hidden" name="topicNode" value="<%= topic.node_cat%>">     
+            <button type="submit" id="publishC">发表评论</button>
+          </form>  
+        </div>
+      </div>
+            <input type="hidden" id="topic_id" value="<%= topic._id%>">
+            <input type="hidden" id="topic_title" value="<%= topic.title%>">  
+            <input type="hidden" id="topic_node" value="<%= topic.node_cat%>">  
+      <!--主体右侧：小贴士,其他话题-->
+      <div class="slidebar">
+        <div class="tips slidecom" style="margin-top:0">
+          <h3>小贴士:</h3>
+            <%tip.forEach(function(t, index){%>
+              <li class="font14"><%= index%>)<%- t%></li>
+            <%})%>
+        </div>
+
+        <div class="talk slidecom" style="margin-top:20px">
+          <h3>同节点下的话题:</h3>
+          <%others.forEach(function(other, index){%>
+          <li>
+            <a href="/topic?id=<%=other._id%>&node_cat=<%=other.node_cat%>"><%= other.title%></a>
+          </li>
+          <%})%>
+        </div>
+      </div>
+      <!--主体右侧ends-->
+    </div>
+    <script>
+      require(['jquery-1.8.3','formDate'],function($, formDate){
+        formDate.bindElments('.topicinfo .time').Interval();
+        formDate.bindElments('.response li .time').Interval()
+      });
+    </script>
+    <script>
+    require(['jquery-1.8.3', 'domReady', 'State', 'reply'], function($, domReady, State, reply){
+      domReady(function(){
+        reply(State);
+      });
+    });
+    </script>
+  <% include ../common/footer.html%>
