@@ -26,5 +26,4 @@ $ node app
 - javascript代码大杂烩一样置于html中，这个也糟糕,下面要尝试着学习前端MVC，并作相关优化
 - 会员主页着一块的界面设计，觉得[RubyChina](https://ruby-china.org/)不是自己喜爱，等过段时间设计下
 
-> 直接上[DEMO](http://123.57.253.198:3000/)
 
